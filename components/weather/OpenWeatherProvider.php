@@ -6,7 +6,7 @@ namespace app\components\weather;
  */
 class OpenWeatherProvider implements WeatherInterface
 {
-    const _API_KEY_ = "320676fb8c83026db195e4db07ffacc3";
+    const _API_KEY_ = "";
     const _API_URL_ = "https://api.openweathermap.org/data/2.5/weather";
     const _API_LANG_ = 'ru';
 
