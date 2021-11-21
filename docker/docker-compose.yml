@@ -1,0 +1,59 @@
+version: '3.2'
+
+services:
+  wwp_db:
+    hostname: wwp_db
+    container_name: wwp_db
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../../docker_data/db:/var/lib/mysql #storing db data (requires empty directory ../../docker_data/db)
+      - ../../docker_data/dump:/tmp #share db dump directory for manual import from container console
+    environment:
+      MYSQL_ROOT_PASSWORD: 'rootpwd'
+
+  wwp_php:
+    hostname: wwp_php
+    container_name: wwp_php
+    build:
+      context: ./
+      dockerfile: php.Dockerfile
+    links:
+      - wwp_db
+    volumes:
+      - ../../www:/var/www
+      - ../../docker_data/tmp:/tmp
+
+  wwp_web:
+    hostname: wwp_web
+    container_name: wwp_web
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./hosts:/etc/nginx/conf.d
+      - ../../www:/var/www
+      - ../../docker_data/logs/nginx:/var/log/nginx
+    links:
+      - wwp_php
+    extra_hosts:
+      - "wwp.oi:127.0.0.1"
+
+  wwp_pma:
+    hostname: wwp_pma
+    container_name: wwp_pma
+    image: phpmyadmin
+    #    restart: always
+    ports:
+      - 81:80
+    extra_hosts:
+      - "wwp.pma:127.0.0.1"
+    links:
+      - wwp_db
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=wwp_db
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpwd
