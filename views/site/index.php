@@ -4,9 +4,8 @@
 
 $this->title = 'Forecast history';
 
-$result = Yii::$app->weather->byCity('Новосибирск');
-echo ($result) ?? Yii::$app->weather->getError();
-
+//$result = Yii::$app->weather->byCity('Новосибирск');
+//echo ($result) ?? Yii::$app->weather->getError();
 
 ?>
 <div class="site-index">
