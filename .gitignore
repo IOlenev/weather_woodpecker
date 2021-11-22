@@ -1,6 +1,9 @@
 # phpstorm project files
 .idea
 
+#local params config file
+/config/params-local.php
+
 # netbeans project files
 nbproject
 
