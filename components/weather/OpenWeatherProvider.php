@@ -6,7 +6,7 @@ namespace app\components\weather;
  */
 class OpenWeatherProvider implements WeatherInterface
 {
-    const _API_KEY_ = "";
+    const _API_KEY_ = "weather.openweather.apikey";
     const _API_URL_ = "https://api.openweathermap.org/data/2.5/weather";
     const _API_LANG_ = 'ru';
 
@@ -16,7 +16,7 @@ class OpenWeatherProvider implements WeatherInterface
     public function __construct()
     {
         $this->_params = [
-            'appid' => self::_API_KEY_,
+            'appid' => \Yii::$app->params[self::_API_KEY_],
             'lang' => self::_API_LANG_,
         ];
     }
