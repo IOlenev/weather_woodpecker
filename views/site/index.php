@@ -4,10 +4,8 @@
 
 $this->title = 'Forecast history';
 
-echo Yii::$app->params[\app\components\weather\OpenWeatherProvider::_API_KEY_];
-echo Yii::$app->params['senderName'];
-//$result = Yii::$app->weather->byCity('Новосибирск');
-//echo ($result) ?? Yii::$app->weather->getError();
+$result = Yii::$app->weather->byCity('Новосибирск');
+echo ($result) ?? Yii::$app->weather->getError();
 
 
 ?>
