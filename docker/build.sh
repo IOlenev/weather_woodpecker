@@ -9,3 +9,6 @@ mkdir -m 777 ../../docker_data/logs/nginx
 mkdir -m 777 ../../docker_data/logs/php
 
 docker-compose up -d --build
+sleep 5
+docker exec wwp_db mysql -uroot -prootpwd --init-command="CREATE DATABASE IF NOT EXISTS wwp"
+docker exec wwp_php php yii initdb
