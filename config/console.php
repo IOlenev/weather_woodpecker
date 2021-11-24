@@ -37,6 +37,8 @@ $config = [
     */
 ];
 
+$config['components'] = array_merge($config['components'], require __DIR__ . '/common-components.php');
+
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment
     $config['bootstrap'][] = 'gii';

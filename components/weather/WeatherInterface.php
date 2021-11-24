@@ -18,4 +18,10 @@ interface WeatherInterface
      * @return string|null
      */
     public function getError() : ?string;
+
+    /**
+     * get weather provider unique id
+     * @return id
+     */
+    public function getProviderId() : int;
 }

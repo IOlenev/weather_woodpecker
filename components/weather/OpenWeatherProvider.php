@@ -6,6 +6,7 @@ namespace app\components\weather;
  */
 class OpenWeatherProvider implements WeatherInterface
 {
+    const _ID_ = 1;
     const _API_KEY_ = "weather.openweather.apikey";
     const _API_URL_ = "https://api.openweathermap.org/data/2.5/weather";
     const _API_LANG_ = 'ru';
@@ -50,12 +51,16 @@ class OpenWeatherProvider implements WeatherInterface
             $params = http_build_query(array_merge($this->_params, $params));
             $url = sprintf("%s?%s", self::_API_URL_, $params);
             curl_setopt($ch, CURLOPT_HEADER, 0);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 1);
+            curl_setopt($ch, CURLOPT_TIMEOUT, 100);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_URL, $url);
             $result = curl_exec($ch);
-            if (curl_getinfo($ch, CURLINFO_RESPONSE_CODE) != 200) {
-                throw new \Exception('Error ' . $result . ' in ' . __METHOD__);
+            $code = curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+            if ($code != 200) {
+                if (empty($code)) {
+                    $code = $result;
+                }
+                throw new \Exception('Error ' . $code . ' in ' . __METHOD__);
             }
         } catch(\Exception $e) {
             $this->_error = $e->getMessage();
@@ -64,5 +69,13 @@ class OpenWeatherProvider implements WeatherInterface
         curl_close($ch);
 
         return $result;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProviderId(): int
+    {
+        return self::_ID_;
     }
 }

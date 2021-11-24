@@ -1,7 +1,6 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$params = array_merge($params, require __DIR__ . '/params-local.php');
 
 $db = require __DIR__ . '/db.php';
 
@@ -15,11 +14,6 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
-        'weather' => function() {
-            return new app\components\weather\WeatherComponent(
-                'app\components\weather\OpenWeatherProvider'
-            );
-        },
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'zYyvOa42ffbbopMVKQbfv-0p1iVBjtRl',
@@ -62,6 +56,8 @@ $config = [
     ],
     'params' => $params,
 ];
+
+$config['components'] = array_merge($config['components'], require __DIR__ . '/common-components.php');
 
 if (YII_ENV_DEV) {
     // configuration adjustments for 'dev' environment

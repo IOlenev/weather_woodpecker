@@ -30,8 +30,19 @@ class WeatherComponent implements WeatherInterface
         return $this->_provider->byCity($city);
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getError(): ?string
     {
         return $this->_provider->getError();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProviderId(): int
+    {
+        return $this->_provider->getProviderId();
     }
 }
