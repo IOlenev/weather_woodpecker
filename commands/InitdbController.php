@@ -42,7 +42,10 @@ class InitdbController extends Controller
             ->createCommand('SET FOREIGN_KEY_CHECKS = 1;')
             ->execute();
         \Yii::$app->db
-            ->createCommand('INSERT IGNORE INTO `city` (`id`, `name`) VALUES (NULL, "Новосибирcк"), (NULL, "Омск"), (NULL, "Томск");')
+            ->createCommand('ALTER TABLE `forecast` ADD INDEX (`created`);')
+            ->execute();
+        \Yii::$app->db
+            ->createCommand('INSERT IGNORE INTO `city` (`id`, `name`) VALUES (NULL, "Новосибирск"), (NULL, "Омск"), (NULL, "Томск");')
             ->execute();
     }
 }

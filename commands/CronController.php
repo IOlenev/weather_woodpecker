@@ -19,7 +19,7 @@ class CronController extends Controller
         /**
          * @var CityRecord $city
          */
-        foreach (CityRecord::find()->each() as $city) {
+        foreach (CityRecord::getExpiredQuery() as $city) {
             $result = \Yii::$app->weather->byCity($city->name);
             if ($result) {
                 $result = json_decode($result, true);
@@ -28,7 +28,6 @@ class CronController extends Controller
                 $forecast = new ForecastRecord();
                 $forecast->city_id = $city->id;
                 $forecast->provider_id = \Yii::$app->weather->getProviderId();
-                $forecast->created = (new \DateTime())->format('Y-m-d H:i:s');
                 $forecast->data = $result;
                 $result = $forecast->save();
             }
@@ -37,7 +36,7 @@ class CronController extends Controller
             if (!$result) {
                 echo sprintf("error message: %s\n", $result = \Yii::$app->weather->getError());
             }
-            sleep(2);
+            //sleep(1);
         }
     }
 }

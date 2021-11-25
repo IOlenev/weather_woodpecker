@@ -6,6 +6,9 @@ return [
     'username' => 'root',
     'password' => 'rootpwd',
     'charset' => 'utf8',
+    'on afterOpen' => function($event) {
+        $event->sender->createCommand("SET sql_mode = ''")->execute();
+    }
 
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,

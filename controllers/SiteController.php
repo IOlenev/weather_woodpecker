@@ -64,6 +64,11 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionCity($id)
+    {
+        return $this->render('city', compact('id'));
+    }
+
     /**
      * Login action.
      *

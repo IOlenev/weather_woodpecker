@@ -1,0 +1,1 @@
+* * * * * root cd /var/www && /usr/local/bin/php -q -f yii cron
