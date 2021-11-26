@@ -2,7 +2,7 @@
 namespace app\components\weather;
 
 /**
- * Provids weather forecast by weather service openweathermap.org
+ * Provides weather forecast by weather service openweathermap.org
  */
 class OpenWeatherProvider implements WeatherInterface
 {
@@ -27,7 +27,7 @@ class OpenWeatherProvider implements WeatherInterface
      */
     public function byCity(string $city): ?string
     {
-        return $this->request(['q' => $city]);
+        return $this->request(['q' => $city, 'mode' => 'html']);
     }
 
     /**

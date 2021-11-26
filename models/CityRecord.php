@@ -4,9 +4,9 @@ namespace app\models;
 
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\db\Query;
 
 /**
+ * Table `city` active record class
  * @property int $id
  * @property string $name
  * @property string $lasttime - date and time of forecast last time gets
@@ -24,15 +24,29 @@ class CityRecord extends ActiveRecord
     }
 
     /**
+     * expired forecast cities query
      * @return ActiveQuery
      */
     public static function getExpiredQuery()
     {
-        return (new ActiveQuery(self::class))
+        return (new ActiveQuery(static::class))
             ->select('`city`.`id`, `city`.`name`, MAX(`forecast`.`created`) AS `lasttime`')
             ->from(ForecastRecord::tableName())
             ->innerJoin('`city`', '`city`.`id` = `forecast`.`city_id`')
             ->groupBy('`forecast`.`city_id`')
-            ->having('ADDDATE(`lasttime`, INTERVAL 5 MINUTE) < NOW()');
+            ->having('ADDDATE(`lasttime`, INTERVAL 10 MINUTE) < NOW()');
+    }
+
+    /**
+     * cities with no forecast query
+     * @return ActiveQuery
+     */
+    public static function getNoForecast()
+    {
+        return (new ActiveQuery(static::class))
+            ->select('`city`.`id`, `city`.`name`')
+            ->from(static::tableName())
+            ->leftJoin('`forecast`', '`city`.`id` = `forecast`.`city_id`')
+            ->where('ISNULL(`forecast`.`id`)');
     }
 }

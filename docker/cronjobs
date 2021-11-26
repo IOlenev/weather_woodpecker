@@ -1,1 +1,2 @@
-* * * * * root cd /var/www && /usr/local/bin/php -q -f yii cron
+#just one job
+* * * * * root cd /var/www && /usr/local/bin/php yii cron
