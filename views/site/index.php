@@ -10,7 +10,7 @@ use app\models\ForecastRecord;
 use yii\grid\GridView;
 use yii\data\ArrayDataProvider;
 
-$this->title = 'Cities';
+$this->title = 'Weather forecasts';
 
 ?>
 <div class="site-index">
@@ -34,15 +34,18 @@ $this->title = 'Cities';
             echo GridView::widget([
                 'dataProvider' => new ArrayDataProvider(['allModels' => ForecastRecord::getLast()->all()]),
                 'columns' => [
-                    ['label' => 'City', 'attribute' => 'id', 'format' => 'raw', 'value' => function ($data) { return $data->name;} ],
-                    ['label' => 'Date', 'attribute' => 'created', 'value' => function($data) { return date('d.m.Y H:i', strtotime($data->created)); } ],
-                    ['label' => 'Forecast', 'attribute' => 'state', 'format' => 'raw', 'value' =>
-                        function ($data) {
-                            return $data->html;
-                            //return json_encode($data->data);
+                    ['label' => 'City', 'attribute' => 'id', 'format' => 'raw', 'value' => function ($forecast) { return $forecast->name;} ],
+                    ['label' => 'Date', 'attribute' => 'created', 'value' => function($forecast) { return date('d.m.Y H:i', strtotime($forecast->created)); } ],
+                    ['label' => 'Forecast', 'attribute' => 'forecastDetail', 'format' => 'raw', 'value' =>
+                        function ($forecast) {
+                            /**
+                             * @var ForecastRecord $forecast
+                             */
+                            //return var_export($forecast, true);
+                            return $forecast->html;
+                            //return json_encode($forecast->detail->data);
                         }],
-                ]
-            ]);
+                ]]);
             ?>
         </div>
     </div>

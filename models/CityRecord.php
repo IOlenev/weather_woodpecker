@@ -10,6 +10,7 @@ use yii\db\ActiveRecord;
  * @property int $id
  * @property string $name
  * @property string $lasttime - date and time of forecast last time gets
+ * @property ForecastRecord[] $forecasts - city forecasts relation
  */
 class CityRecord extends ActiveRecord
 {
@@ -48,5 +49,14 @@ class CityRecord extends ActiveRecord
             ->from(static::tableName())
             ->leftJoin('`forecast`', '`city`.`id` = `forecast`.`city_id`')
             ->where('ISNULL(`forecast`.`id`)');
+    }
+
+    /**
+     * city forecasts hasMany relation query
+     * @return ActiveQuery
+     */
+    public function getForecasts()
+    {
+        return $this->hasMany(ForecastRecord::class, ['city_id' => 'id']);
     }
 }

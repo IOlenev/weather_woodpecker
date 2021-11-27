@@ -13,3 +13,4 @@ sleep 1
 docker exec wwp_db mysql -uroot -prootpwd --init-command="CREATE DATABASE IF NOT EXISTS wwp"
 docker exec wwp_php composer install
 docker exec wwp_php php yii cron/initdb
+docker exec wwp_php php yii migrate

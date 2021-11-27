@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\models\CityForm;
+use app\models\ForecastRecord;
+use yii\helpers\Url;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -64,9 +67,22 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
-    public function actionCity($id)
+    public function actionAdd()
     {
-        return $this->render('city', compact('id'));
+        $request = Yii::$app->request;
+        $city = new CityForm();
+        if ($request->isPost) {
+            if ($city->load($request->post()) && ($id = $city->save())) {
+                $result = \Yii::$app->weather->byCity($city->name);
+
+                if ($result) {
+                    (new ForecastRecord())->add($id, $result);
+                }
+                Yii::$app->session->setFlash('success', sprintf("City %s added successfully", $city->name));
+                return $this->redirect(Url::to('/'));
+            }
+        }
+        return $this->render('add', compact('city'));
     }
 
     /**

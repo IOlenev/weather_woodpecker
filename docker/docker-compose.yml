@@ -39,7 +39,7 @@ services:
     links:
       - wwp_php
     extra_hosts:
-      - "wwp.oi:127.0.0.1"
+      - "wwp.local:127.0.0.1"
 
   wwp_pma:
     hostname: wwp_pma
