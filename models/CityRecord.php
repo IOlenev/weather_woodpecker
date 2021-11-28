@@ -35,7 +35,7 @@ class CityRecord extends ActiveRecord
             ->from(ForecastRecord::tableName())
             ->innerJoin('`city`', '`city`.`id` = `forecast`.`city_id`')
             ->groupBy('`forecast`.`city_id`')
-            ->having('ADDDATE(`lasttime`, INTERVAL 10 MINUTE) < NOW()');
+            ->having('ADDDATE(`lasttime`, INTERVAL 1 HOUR) < NOW()');
     }
 
     /**
