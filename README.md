@@ -41,3 +41,5 @@ return [
 127.0.0.1   wwp.local
 127.0.0.1   wwp.pma
 ~~~
+7. Open app url [wwp.local](http://wwp.local)
+8. Open phpmyadmin db client (optional)  [wwp.pma](http://wwp.pma:81)
