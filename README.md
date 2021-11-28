@@ -25,10 +25,9 @@ cd wwp.local
 ~~~
 git clone https://github.com/IOlenev/weather_woodpecker.git
 ~~~
-4. Run build shell script from the project`s docker directory to build and run docker containers
+4. Prepare directory tree and Run shell script from the project`s docker directory to build and run docker containers
 ~~~
-cd weather_woodpecker/docker
-sh build.sh
+mv weather_woodpecker www && cd www/docker && sh build.sh
 ~~~
 5. Edit the file `config/params-local.php`. Set API key param value from your [openweathermap.org](https://openweathermap.org) account
 ```php

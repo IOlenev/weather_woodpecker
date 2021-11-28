@@ -7,6 +7,7 @@ mkdir -m 777 ../../docker_data/tmp
 mkdir -m 777 ../../docker_data/logs
 mkdir -m 777 ../../docker_data/logs/nginx
 mkdir -m 777 ../../docker_data/logs/php
+chmod -R 0777 ../web/assets
 
 docker-compose up -d --build
 sleep 1
